@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Banana Recipes</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Banana Recipes</h1>
+        <nav>
+        <a href="index.html">Home</a>
+        <a href="recipes.html">Recipes</a>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Recipe Filter</h2>
+            <input type="text" id="searchInput" placeholder="Search recipes..." style="padding: 8px; width: 200px;">
+        </section>
+        
+        <section class="recipe" data-name="banana bread">
+            <h2>Banana Bread</h2>
+            <p>A classic recipe using ripe bananas to create delicious bread.</p>
+            <button class="toggleRecipe">Show/Hide Details</button>
+            <div class="recipeDetails" style="display: none;">
+            <p><strong>Ingredients:</strong> 3 ripe bananas, 2 cups flour, 1 cup sugar, 2 eggs, 1/2 cup butter</p>
+            <p><strong>Instructions:</strong> Mix ingredients, bake at 350°F for 60 minutes.</p>
+            </div>
+        </section>
+        
+        <section class="recipe" data-name="banana smoothie">
+            <h2>Banana Smoothie</h2>
+            <p>Blend bananas with milk and honey for a healthy drink.</p>
+            <button class="toggleRecipe">Show/Hide Details</button>
+            <div class="recipeDetails" style="display: none;">
+            <p><strong>Ingredients:</strong> 2 bananas, 1 cup milk, 2 tbsp honey, ice cubes</p>
+            <p><strong>Instructions:</strong> Blend all ingredients until smooth.</p>
+            </div>
+        </section>
+        
+        <section class="recipe" data-name="banana pancakes">
+            <h2>Banana Pancakes</h2>
+            <p>Fluffy pancakes with mashed bananas mixed into the batter.</p>
+            <button class="toggleRecipe">Show/Hide Details</button>
+            <div class="recipeDetails" style="display: none;">
+                <p><strong>Ingredients:</strong> 2 bananas, 1 cup flour, 1 egg, 1 cup milk, baking powder</p>
+                <p><strong>Instructions:</strong> Mix batter, cook on griddle until golden brown.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Recipe Rating</h2>
+            <p>Rate this page: </p>
+            <div id="starRating">
+            <span class="star" data-rating="1">⭐</span>
+            <span class="star" data-rating="2">⭐</span>
+            <span class="star" data-rating="3">⭐</span>
+            <span class="star" data-rating="4">⭐</span>
+            <span class="star" data-rating="5">⭐</span>
+            </div>
+            <p id="ratingResult"></p>
+        </section>
+    </main>
+
+    <script>
+        // js 1 = search filter
+        const searchInput = document.getElementById('searchInput');
+        const recipes = document.querySelectorAll('.recipe');
+
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            recipes.forEach(recipe => {
+            const recipeName = recipe.dataset.name.toLowerCase();
+            if (recipeName.includes(searchTerm)) {
+                recipe.style.display = 'block';
+            } else {
+                recipe.style.display = 'none';
+            }
+            });
+        });
+
+        // js 2 = toggle recipe details
+        const toggleButtons = document.querySelectorAll('.toggleRecipe');
+        toggleButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const details = this.nextElementSibling;
+                if (details.style.display === 'none') {
+                    details.style.display = 'block';
+                } else {
+                    details.style.display = 'none';
+                }
+            });
+        });
+
+        // js 3 = star rating
+        const stars = document.querySelectorAll('.star');
+        const ratingResult = document.getElementById('ratingResult');
+
+        stars.forEach(star => {
+            star.addEventListener('click', function() {
+                const rating = this.dataset.rating;
+                ratingResult.textContent = `You rated this page ${rating} stars!`;
+                
+                // Reset all stars
+                stars.forEach(s => s.style.opacity = '0.3');
+                
+                // Highlight selected stars
+                for (let i = 0; i < rating; i++) {
+                    stars[i].style.opacity = '1';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
