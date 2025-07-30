@@ -36,11 +36,17 @@
             <button id="addBanana">Add Banana 🍌</button>
             <button id="resetCounter">Reset</button>
         </section>
+        <section>
+        <h2>Banana Facts</h2>
+        <div class="fact-generator">
+            <button id="generateFact">Generate Random Fact 🧠</button>
+            <div id="factDisplay" style="margin-top: 15px; padding: 15px; background-color: #fff3cd; border-radius: 5px; display: none;">
+            <p id="factText"></p>
     </main>
     <script>
 const bananaSelect = document.getElementById('bananaSelect');
 const bananaImage = document.getElementById('bananaImage');
-//Feature 1: The image selector
+//Js 1: The image selector
 bananaSelect.addEventListener('change', function() {
     const selectedValue = this.value;
             
@@ -52,7 +58,7 @@ bananaSelect.addEventListener('change', function() {
                 bananaImage.style.display = 'none';
             }
         });
-//Feature 2: The banana counter
+//Js 2: The banana counter
 let count = 0;
     const counterElement = document.getElementById('counter');
     const addBtn = document.getElementById('addBanana');
@@ -67,7 +73,18 @@ let count = 0;
         count = 0;
         counterElement.textContent = count;
     });
-//Feature 3: Fact generator based off prebuilt information
-    </script>>
+//Js 3: Fact generator based off prebuilt information
+const facts = [
+    "Bananas are berries, but strawberries aren't!",
+    "Bananas float in water because they are less dense than water.",
+    "There are more than 1,000 different types of bananas worldwide.",
+]
+document.getElementById('generateFact').onclick = function() {
+    const factwithRandom = facts[Math.floor(Math.random() * facts.length)];
+    const display = document.getElementById('factDisplay');
+    document.getElementById('factText').textContent = factwithRandom;
+    display.style.display = 'block';
+};
+    </script>
 </body>
 </html>
